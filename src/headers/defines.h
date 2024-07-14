@@ -6,4 +6,6 @@
 
 #define DELTA GetFrameTime() * 50
 
+enum flags { CHAT, FRIENDS_SHOWN, PROFILE_SHOWN };
+
 #endif

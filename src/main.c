@@ -7,8 +7,10 @@ int height = 560;
 
 int main() {
   InitWindow(width, height, "acord");
+  SetWindowState(FLAG_WINDOW_RESIZABLE);
 
   while (!WindowShouldClose()) {
+
     BeginDrawing();
     ClearBackground(ACORD_BG);
 
