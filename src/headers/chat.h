@@ -17,4 +17,6 @@ int append_message(Chat *chat, Message message);
 Message atIdx(Chat *chat, int idx);
 int freeChat(Chat *chat);
 
+int drawChat(Chat *chat);
+
 #endif
