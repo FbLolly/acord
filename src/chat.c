@@ -1,9 +1,11 @@
 #include "headers/chat.h"
 
 #include "headers/defines.h"
-#include <malloc.h>
+#include <assert.h>
+#include <limits.h>
 #include <raylib.h>
-#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 extern int width;
 extern int height;
@@ -16,29 +18,30 @@ Chat chat_init(int lenght, char *to) {
                 .chatWith = to};
 }
 
-int append_message(Chat *chat, Message message) {
-  if (chat == NULL)
-    return 1;
+Chat *append_message(Chat *chat, Message message) {
+  assert(chat != NULL);
 
   if (chat->items == NULL) {
     chat->items = malloc(sizeof(Message) * 1);
     chat->items[0] = message;
-    chat->lenght++;
+    chat->lenght = 1;
 
     if (chat->items == NULL)
-      return 1;
+      return NULL;
 
-    return 0;
+    return chat;
   }
 
+  chat->items = realloc(chat->items, (chat->lenght + 1) * sizeof(Message));
+  chat->items[chat->lenght] = message;
+
+  assert(chat->lenght + 1 > chat->lenght);
   chat->lenght++;
-  chat->items = realloc(chat->items, chat->lenght * sizeof(Message));
-  chat->items[chat->lenght - 1] = message;
 
   if (chat->items == NULL)
-    return 1;
+    return NULL;
 
-  return 0;
+  return chat;
 }
 
 Message atIdx(Chat *chat, int idx) {

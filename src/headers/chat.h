@@ -13,7 +13,7 @@ struct Chat {
 };
 
 Chat chat_init(int lenght, char *to);
-int append_message(Chat *chat, Message message);
+Chat *append_message(Chat *chat, Message message);
 Message atIdx(Chat *chat, int idx);
 int freeChat(Chat *chat);
 
