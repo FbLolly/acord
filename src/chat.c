@@ -1,21 +1,18 @@
 #include "headers/chat.h"
 
 #include "headers/defines.h"
+#include "headers/globalData.h"
+#include "headers/textReformat.h"
 #include <assert.h>
 #include <limits.h>
 #include <raylib.h>
 #include <stdint.h>
 #include <stdlib.h>
 
-extern int width;
-extern int height;
-extern int scale;
-extern Font font;
-
-Chat chat_init(int lenght, char *to) {
+Chat chat_init(int lenght, GlobalData *data) {
   return (Chat){.lenght = lenght,
                 .items = malloc(sizeof(Message) * lenght),
-                .chatWith = to};
+                .chatWith = data->toID};
 }
 
 Chat *append_message(Chat *chat, Message message) {
@@ -60,8 +57,12 @@ int freeChat(Chat *chat) {
   return 0;
 }
 
-int drawChat(Chat *chat) {
-  int i, pos = height - ((chat->lenght + 1) * (MESSAGE_HEIGHT + (scale * 10)));
+int drawChat(Chat *chat, GlobalData *data) {
+  int i, pos = data->height - (MESSAGE_HEIGHT_PTR + (data->scale * 10));
+
+  for (i = 0; i < chat->lenght; i++) {
+    pos -= chat->items[i].height + (data->scale * 30);
+  }
 
   if (chat == NULL)
     return 1;
@@ -69,11 +70,17 @@ int drawChat(Chat *chat) {
     return 0;
 
   for (i = 0; i < chat->lenght; i++) {
-    DrawRectangle(5, pos, width - 20, MESSAGE_HEIGHT, BLACK);
-    DrawTextEx(font, chat->items[i].string, (Vector2){20, pos + 10}, scale * 20,
-               10, RAYWHITE);
+    DrawRectangle(5, pos, data->width - 20, chat->items[i].height, BLACK);
 
-    pos += MESSAGE_HEIGHT + (scale * 10);
+    DrawTextEx(
+        data->smallFont,
+        TextFormat("from %s to %s", chat->items[i].fromID, chat->items[i].toID),
+        (Vector2){data->scale * 16, pos - (data->scale * 16)}, data->scale * 16,
+        1, RAYWHITE);
+    drawTextBoxed(chat->items[i].string, &chat->items[i],
+                  (Vector2){data->scale * 30, pos + data->scale * 5}, data);
+
+    pos += chat->items[i].height + (data->scale * 30);
   }
 
   return 0;

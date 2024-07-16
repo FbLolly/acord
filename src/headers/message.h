@@ -15,6 +15,8 @@ struct Message {
 
   char *fromID;
   char *toID;
+
+  int height;
 };
 
 #endif

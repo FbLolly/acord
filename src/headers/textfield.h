@@ -17,8 +17,8 @@ struct Textfield {
 };
 
 Textfield textFieldInit(Rectangle rect, Vector2 margins, char *placeholder);
-void drawTextField(Textfield *Textfield);
+void drawTextField(Textfield *Textfield, GlobalData *data);
 void handleInput(Textfield *Textfield);
-void sendMessage(Chat *chat, Textfield *Textfield);
+void sendMessage(Chat *chat, Textfield *Textfield, GlobalData *data);
 
 #endif
