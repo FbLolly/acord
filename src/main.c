@@ -16,9 +16,17 @@ int main() {
   InitWindow(data.width, data.height, "acord");
   SetWindowState(FLAG_WINDOW_RESIZABLE);
 
-  data = *loadFonts(&data, "font/CaskaydiaCove-Regular.ttf");
+  loadFonts(&data, "font/CaskaydiaCove-Regular.ttf");
 
   while (!WindowShouldClose()) {
+    data.width = GetScreenWidth();
+    data.height = GetScreenHeight();
+
+    textfield.rect =
+        (Rectangle){10, data.height - 10 - MESSAGE_HEIGHT, data.width - 20,
+                  MESSAGE_HEIGHT};
+    textfield.margins = (Vector2){20, data.height - MESSAGE_HEIGHT + 10};
+
     handleInput(&textfield);
     sendMessage(&chat, &textfield, &data);
 
