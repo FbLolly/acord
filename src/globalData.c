@@ -14,9 +14,7 @@ GlobalData init_GlobalData(int width, int height, int scale, char *userID,
                                      // init the window to load fonts
 }
 
-GlobalData *loadFonts(GlobalData *data, char *font) {
+void loadFonts(GlobalData *data, char *font) {
   data->font = LoadFontEx(font, data->scale * 20, NULL, 0);
   data->smallFont = LoadFontEx(font, data->scale * 16, NULL, 0);
-
-  return data;
 }

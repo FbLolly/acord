@@ -18,6 +18,6 @@ struct GlobalData {
 
 GlobalData init_GlobalData(int width, int height, int scale, char *userID,
                            char *toID);
-GlobalData *loadFonts(GlobalData *data, char *font);
+void loadFonts(GlobalData *data, char *font);
 
 #endif

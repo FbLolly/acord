@@ -16,7 +16,7 @@ int main() {
   InitWindow(data.width, data.height, "acord");
   SetWindowState(FLAG_WINDOW_RESIZABLE);
 
-  data = *loadFonts(&data, "font/CaskaydiaCove-Regular.ttf");
+  loadFonts(&data, "font/CaskaydiaCove-Regular.ttf");
 
   while (!WindowShouldClose()) {
     data.width = GetScreenWidth();
