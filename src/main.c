@@ -3,7 +3,6 @@
 #include "headers/chat.h"
 #include "headers/defines.h"
 #include "headers/globalData.h"
-#include "headers/textfield.h"
 
 int main() {
   GlobalData data = init_GlobalData(1000, 520, 1, "01", "02");
@@ -26,7 +25,7 @@ int main() {
     ClearBackground(ACORD_BG);
 
     drawTextField(&textfield, &data);
-    drawChat(&chat, &data);
+    drawChat(&chat, &textfield, &data);
     EndDrawing();
   }
 

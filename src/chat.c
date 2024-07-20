@@ -1,6 +1,5 @@
 #include "headers/chat.h"
 
-#include "headers/defines.h"
 #include "headers/globalData.h"
 #include "headers/textReformat.h"
 #include <assert.h>
@@ -57,8 +56,8 @@ int freeChat(Chat *chat) {
   return 0;
 }
 
-int drawChat(Chat *chat, GlobalData *data) {
-  int i, pos = data->height - (MESSAGE_HEIGHT_PTR + (data->scale * 10));
+int drawChat(Chat *chat, Textfield *tf, GlobalData *data) {
+  int i, pos = data->height - (tf->rect.height + (data->scale * 10));
 
   for (i = 0; i < chat->lenght; i++) {
     pos -= chat->items[i].height + (data->scale * 30);
